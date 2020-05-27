@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>學習使用 \#</title>
+      <link href="/2020/05/27/markdownLesson2/"/>
+      <url>/2020/05/27/markdownLesson2/</url>
+      
+        <content type="html"><![CDATA[<p>今天一起來學習簡單又輕鬆的輕量級標記式語言<strong>Markdown</strong>。<br>創始人為約翰·格魯伯，該語言使用易讀易寫之純文字，後可轉換成<a href="https://zh.wikipedia.org/wiki/XHTML" target="_blank" rel="noopener">XHTML</a>文件供使用。</p><h1 id="第二課"><a href="#第二課" class="headerlink" title="第二課"></a>第二課</h1><blockquote><p>摘自<a href="https://www.markdowntutorial.com/" target="_blank" rel="noopener">https://www.markdowntutorial.com/</a></p></blockquote><h2 id="的使用"><a href="#的使用" class="headerlink" title="#的使用"></a>#的使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">功能：可以顯示如html標籤h1,h2,h3...相同標題效果</span><br></pre></td></tr></table></figure><p>示範：</p><h1 id="這是Header-one"><a href="#這是Header-one" class="headerlink" title="這是Header one"></a>這是Header one</h1><h2 id="這是Header-two"><a href="#這是Header-two" class="headerlink" title="這是Header two"></a>這是Header two</h2><h3 id="這是Header-three"><a href="#這是Header-three" class="headerlink" title="這是Header three"></a>這是Header three</h3><h4 id="這是Header-four"><a href="#這是Header-four" class="headerlink" title="這是Header four"></a>這是Header four</h4><h5 id="這是Header-five"><a href="#這是Header-five" class="headerlink" title="這是Header five"></a>這是Header five</h5><h6 id="這是Header-six"><a href="#這是Header-six" class="headerlink" title="這是Header six"></a>這是Header six</h6><p><font color="#dd0000"><strong>PS:</strong> 標題效果使用的時候， # 與字需要空格並且也要從該行第一列開始放置，否則不會被識別，會變成一般的#。</font></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">意即：#(空格)這是Header one</span><br></pre></td></tr></table></figure><p>這點使用上要<font color="#dd0000"><strong>注意喔！</strong></font></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>學習使用 _ and *</title>
       <link href="/2020/05/26/markdownLesson1/"/>
       <url>/2020/05/26/markdownLesson1/</url>
