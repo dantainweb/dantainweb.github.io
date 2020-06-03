@@ -110,55 +110,16 @@
                                             
 
                                                 
-                                                                    <h1 id="Numbers-With-Equal-Digit-Sum"><a href="#Numbers-With-Equal-Digit-Sum" class="headerlink" title="Numbers With Equal Digit Sum"></a>Numbers With Equal Digit Sum</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">example</span><br><span class="line">A&#x3D;[51,71,17,42], the function should return 93. </span><br><span class="line">There are two pairs of numbers whose digits add up to an equal sum:</span><br><span class="line">(51, 42) and (17,71). The first pair sums up to 93.</span><br><span class="line"> </span><br><span class="line">B&#x3D;[42,33,60], the function should return 102. </span><br><span class="line">The digits of all numbers in A add up to the same sum,</span><br><span class="line">and choosing to add 42 and 60 gives the result 102.</span><br><span class="line"></span><br><span class="line">C&#x3D;[51,32,43], the function should return -1, </span><br><span class="line">since all numbers in A have digits that add up to different, unique sums.</span><br></pre></td></tr></table></figure>
-
-
-<p>在這邊我做一個code紀錄，如果有更厲害的朋友可以指教。</p>
-<p>===<br>public static int solution(int[] A) {<br>        long startTime = System.nanoTime(); // 測試時間<br>        HashMap&lt;Integer, ArrayList<Integer>&gt; entity = new HashMap&lt;&gt;();<br>        ArrayList<Integer> list;<br>        for(int i=0 ; i&lt;A.length ; i++) {<br>            int total = addAllDigit(A[i]); // 每一位數字相加<br>            // 先找尋entity的key有沒有相同的<br>            if(entity.containsKey(total)) { // 有相同<br>                // 拿出原本map裡的list<br>                ArrayList<Integer> internal = entity.get(total);<br>                internal.add(A[i]);<br>                // 覆蓋存回該map裡面<br>                entity.put(total, internal);<br>            } else { // 沒有相同<br>                list = new ArrayList&lt;&gt;();<br>                list.add(A[i]);<br>                entity.put(total, list);<br>            }<br>        }</p>
-<pre><code>    int biggest = -1;
-    for(Integer value : entity.keySet()) {
-        Integer array[] = (entity.get(value)).toArray(new Integer[0]);
-        int total = addTwoNumberBiggest(array);
-        if(total != -1 &amp;&amp; total&gt;biggest) {
-            biggest = total;
-        }
-    }
-    long endTime = System.nanoTime(); // 測試時間
-    System.out.println(&quot;spend Time :&quot; + (endTime-startTime)/1000000);
-    return biggest;
-}
-
-// 每一位數字相加
-public static int addAllDigit(int number) {
-    int flag=1;
-    int result=0;
-    result += number%10;
-    number = number/10;
-    while(flag != -1) {
-        result += number%10;
-        if((number/10) != 0) {
-            number = number/10;
-        } else {
-            flag = -1;
-        }
-    }
-    return result;
-}
-
-// 一個list裡面存在的兩數相加最大 / 若只存在一個數字, 因為無法相加所以回傳-1
-public static int addTwoNumberBiggest(Integer[] A) {
-    Integer copyArray[] = Arrays.copyOf(A, A.length);
-    Arrays.sort(copyArray);
-    if(copyArray.length &lt; 2) {
-        return -1;
-    }
-    return copyArray[copyArray.length-2]+copyArray[copyArray.length-1];
-    // 會影響到原先的array</code></pre><p>//        Arrays.sort(A);<br>//        return A[A.length-2]+A[A.length-1];<br>    }<br>===</p>
-
+                                                                    <h1 id="Numbers-With-Equal-Digit-Sum"><a href="#Numbers-With-Equal-Digit-Sum" class="headerlink" title="Numbers With Equal Digit Sum"></a>Numbers With Equal Digit Sum</h1><blockquote>
+<p>簡單說明：給定一個陣列(array)，該array裡面皆為數字組成，每個數字的位數間做總和，相同的成一組。每組至少兩個數字或以上，如果沒有，則不算成組，若全部都沒有成組，則回傳一個-1；若有成組，則將該組最大與次大的兩個數字做加總，比較其他組看誰的加總最大，便回傳該值。<br>example<br>A=[51,71,17,42], the function should return 93. There are two pairs of numbers whose digits add up to an equal sum: (51, 42) and (17,71). The first pair sums up to 93.<br>B=[42,33,60], the function should return 102. The digits of all numbers in A add up to the same sum, and choosing to add 42 and 60 gives the result 102.<br>C=[51,32,43], the function should return -1, since all numbers in A have digits that add up to different, unique sums.</p>
+</blockquote>
+<pre><code>在這邊我做一個code紀錄，如果有更厲害的朋友可以指教。</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public static int solution(int[] A) &#123;</span><br><span class="line">	long startTime &#x3D; System.nanoTime(); &#x2F;&#x2F; 測試時間</span><br><span class="line">	HashMap&lt;Integer, ArrayList&lt;Integer&gt;&gt; entity &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">	ArrayList&lt;Integer&gt; list;</span><br><span class="line">	for(int i&#x3D;0 ; i&lt;A.length ; i++) &#123;</span><br><span class="line">		int total &#x3D; addAllDigit(A[i]); &#x2F;&#x2F; 每一位數字相加</span><br><span class="line">		&#x2F;&#x2F; 先找尋entity的key有沒有相同的</span><br><span class="line">		if(entity.containsKey(total)) &#123; &#x2F;&#x2F; 有相同</span><br><span class="line">			&#x2F;&#x2F; 拿出原本map裡的list</span><br><span class="line">			ArrayList&lt;Integer&gt; internal &#x3D; entity.get(total);</span><br><span class="line">			internal.add(A[i]);</span><br><span class="line">			&#x2F;&#x2F; 覆蓋存回該map裡面</span><br><span class="line">			entity.put(total, internal);</span><br><span class="line">		&#125; else &#123; &#x2F;&#x2F; 沒有相同</span><br><span class="line">			list &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">			list.add(A[i]);</span><br><span class="line">			entity.put(total, list);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	int biggest &#x3D; -1;</span><br><span class="line">	for(Integer value : entity.keySet()) &#123;</span><br><span class="line">		Integer array[] &#x3D; (entity.get(value)).toArray(new Integer[0]);</span><br><span class="line">		int total &#x3D; addTwoNumberBiggest(array);</span><br><span class="line">		if(total !&#x3D; -1 &amp;&amp; total&gt;biggest) &#123;</span><br><span class="line">			biggest &#x3D; total;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	long endTime &#x3D; System.nanoTime(); &#x2F;&#x2F; 測試時間</span><br><span class="line">	System.out.println(&quot;spend Time :&quot; + (endTime-startTime)&#x2F;1000000);</span><br><span class="line">	return biggest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 每一位數字相加</span><br><span class="line">public static int addAllDigit(int number) &#123;</span><br><span class="line">	int flag&#x3D;1;</span><br><span class="line">	int result&#x3D;0;</span><br><span class="line">	result +&#x3D; number%10;</span><br><span class="line">	number &#x3D; number&#x2F;10;</span><br><span class="line">	while(flag !&#x3D; -1) &#123;</span><br><span class="line">		result +&#x3D; number%10;</span><br><span class="line">		if((number&#x2F;10) !&#x3D; 0) &#123;</span><br><span class="line">			number &#x3D; number&#x2F;10;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			flag &#x3D; -1;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	&#x2F;&#x2F; 一個list裡面存在的兩數相加最大 &#x2F; 若只存在一個數字, 因為無法相加所以回傳-1</span><br><span class="line">	public static int addTwoNumberBiggest(Integer[] A) &#123;</span><br><span class="line">		Integer copyArray[] &#x3D; Arrays.copyOf(A, A.length);</span><br><span class="line">		Arrays.sort(copyArray);</span><br><span class="line">		if(copyArray.length &lt; 2) &#123;</span><br><span class="line">			return -1;</span><br><span class="line">		&#125;</span><br><span class="line">		return copyArray[copyArray.length-2]+copyArray[copyArray.length-1];</span><br><span class="line">		&#x2F;&#x2F; 會影響到原先的array</span><br><span class="line">&#x2F;&#x2F;		Arrays.sort(A);</span><br><span class="line">&#x2F;&#x2F;		return A[A.length-2]+A[A.length-1];</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://dantainweb.github.io/2020/06/03/Numbers%20With%20Equal%20Digit%20Sum/" data-id="ckaz1d1iv0003o4k59z0j906s" class="article-share-link">
+                                        <a data-url="https://dantainweb.github.io/2020/06/03/Numbers%20With%20Equal%20Digit%20Sum/" data-id="ckaz24qcy00029wk53luf1f6p" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -229,17 +190,21 @@ public static int addTwoNumberBiggest(Integer[] A) {
 </ol>
 </li>
 <li><ol start="3">
-<li><p>快速的配對</p>
-<p>airpods pro 的配對速度非常快，可能本身使用的是蘋果手機，所以才有這種速度，這我不清楚。但是就以它的配對速度來說真的很給力。</p>
+<li><p>快速的配對、放入耳朵偵測、與耳麥的清晰接收</p>
+<ul>
+<li>a. airpods pro 的配對速度非常快，可能本身使用的是蘋果手機，所以才有這種速度，這我不清楚。但是就以它的配對速度來說真的很給力。</li>
+<li>b. 當你將airpods 放入耳朵時，會自動的偵測並發出連結音，告知使用者已放入耳朵。如果你正在用airpods聽音樂，突然有事拿下airpods的時候，就會自動暫停音樂的撥放。</li>
+<li>c. 從以往的airpods來說，耳麥的接收器通常都不錯，這款也是不惶多讓的。</li>
+</ul>
 </li>
 </ol>
 </li>
 </ul>
-<h4 id="目前使用第二天所得到的直接感覺，只能說我覺得很適合我，不能說每個人都喜歡。至於這個價錢，一開始看覺得真的很貴，但是用完之後就會知道他值得這樣。"><a href="#目前使用第二天所得到的直接感覺，只能說我覺得很適合我，不能說每個人都喜歡。至於這個價錢，一開始看覺得真的很貴，但是用完之後就會知道他值得這樣。" class="headerlink" title="目前使用第二天所得到的直接感覺，只能說我覺得很適合我，不能說每個人都喜歡。至於這個價錢，一開始看覺得真的很貴，但是用完之後就會知道他值得這樣。"></a>目前使用第二天所得到的直接感覺，只能說我覺得很適合我，不能說每個人都喜歡。至於這個價錢，一開始看覺得真的很貴，但是用完之後就會知道他值得這樣。</h4>
+<h4 id="目前使用第二天所得到的直接感覺，只能說覺得很適合我，當然不能說每個人都喜歡。至於這個價錢，一開始看覺得真的很貴，但是用完之後就會知道他值得這樣。"><a href="#目前使用第二天所得到的直接感覺，只能說覺得很適合我，當然不能說每個人都喜歡。至於這個價錢，一開始看覺得真的很貴，但是用完之後就會知道他值得這樣。" class="headerlink" title="目前使用第二天所得到的直接感覺，只能說覺得很適合我，當然不能說每個人都喜歡。至於這個價錢，一開始看覺得真的很貴，但是用完之後就會知道他值得這樣。"></a>目前使用第二天所得到的直接感覺，只能說覺得很適合我，當然不能說每個人都喜歡。至於這個價錢，一開始看覺得真的很貴，但是用完之後就會知道他值得這樣。</h4>
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://dantainweb.github.io/2020/06/02/Airpods%20Pro%E5%A5%BD%E5%8E%B2%E5%AE%B3/" data-id="ckaz1d1ii0000o4k5c7dl9ry7" class="article-share-link">
+                                        <a data-url="https://dantainweb.github.io/2020/06/02/Airpods%20Pro%E5%A5%BD%E5%8E%B2%E5%AE%B3/" data-id="ckaz24qcr00009wk5he2bcffs" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -307,7 +272,7 @@ public static int addTwoNumberBiggest(Integer[] A) {
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://dantainweb.github.io/2020/05/28/markdownLesson3/" data-id="ckaz1d1iw0004o4k5gmy87vm9" class="article-share-link">
+                                        <a data-url="https://dantainweb.github.io/2020/05/28/markdownLesson3/" data-id="ckaz24qd400079wk57oc79cko" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -372,7 +337,7 @@ public static int addTwoNumberBiggest(Integer[] A) {
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://dantainweb.github.io/2020/05/27/markdownLesson2/" data-id="ckaz1d1iu0002o4k5awb76zne" class="article-share-link">
+                                        <a data-url="https://dantainweb.github.io/2020/05/27/markdownLesson2/" data-id="ckaz24qd100049wk5835x4qob" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -447,7 +412,7 @@ public static int addTwoNumberBiggest(Integer[] A) {
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://dantainweb.github.io/2020/05/26/markdownLesson1/" data-id="ckaz1d1it0001o4k5eqbw98sc" class="article-share-link">
+                                        <a data-url="https://dantainweb.github.io/2020/05/26/markdownLesson1/" data-id="ckaz24qd500099wk586ly3fni" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -504,7 +469,7 @@ public static int addTwoNumberBiggest(Integer[] A) {
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://dantainweb.github.io/2020/05/25/%E5%AF%B5%E7%89%A9%E7%A5%9D%E8%B3%80/" data-id="ckaz1d1j30007o4k53sn2428t" class="article-share-link">
+                                        <a data-url="https://dantainweb.github.io/2020/05/25/%E5%AF%B5%E7%89%A9%E7%A5%9D%E8%B3%80/" data-id="ckaz24qd300069wk548wvdvim" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -560,7 +525,7 @@ public static int addTwoNumberBiggest(Integer[] A) {
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://dantainweb.github.io/2020/05/25/%E6%8E%A8%E8%96%A6%E6%BD%B6%E5%85%AB%E5%AF%B6%E5%BD%B1%E7%89%87/" data-id="ckaz1d1j30008o4k5emrh4tzk" class="article-share-link">
+                                        <a data-url="https://dantainweb.github.io/2020/05/25/%E6%8E%A8%E8%96%A6%E6%BD%B6%E5%85%AB%E5%AF%B6%E5%BD%B1%E7%89%87/" data-id="ckaz24qd500089wk53f2tcxjg" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -618,7 +583,7 @@ public static int addTwoNumberBiggest(Integer[] A) {
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://dantainweb.github.io/2020/05/21/SELECT%E5%AF%AB%E6%B3%95%E7%B6%9C%E5%90%88%E8%A7%80/" data-id="ckaz1d1ix0006o4k563yl0qcr" class="article-share-link">
+                                        <a data-url="https://dantainweb.github.io/2020/05/21/SELECT%E5%AF%AB%E6%B3%95%E7%B6%9C%E5%90%88%E8%A7%80/" data-id="ckaz24qd200059wk5azcedbgc" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -684,7 +649,7 @@ public static int addTwoNumberBiggest(Integer[] A) {
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="https://dantainweb.github.io/2020/05/20/hello-world/" data-id="ckaz1d1ix0005o4k5azti7v2i" class="article-share-link">
+                                        <a data-url="https://dantainweb.github.io/2020/05/20/hello-world/" data-id="ckaz24qd000039wk5dhra9txr" class="article-share-link">
                                             Share
                                         </a>
                                         
